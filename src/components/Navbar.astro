@@ -1,0 +1,89 @@
+---
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Github, Menu } from 'lucide-react';
+import RepoConnector from '../Repo-login/RepoConnector.astro';
+import Link from 'astro/components/Link.astro';
+---
+
+<motion.header
+  initial={{ y: -20, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.5 }}
+  class="fixed top-0 left-0 right-0 z-50"
+>
+  <motion.div
+    class="h-1 bg-gradient-to-r from-primary via-chart-1 to-chart-2"
+    initial={{ scaleX: 0 }}
+    animate={{ scaleX: 1 }}
+    transition={{ duration: 0.8, delay: 0.2 }}
+  />
+
+  <div class="bg-background/70 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <Link href="/">
+          <motion.div
+            class="relative flex items-center gap-2"
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
+          >
+            <motion.div
+              class="absolute inset-0 bg-primary/5 rounded-full"
+              initial={{ scale: 0 }}
+              animate={{ scale: isHovered ? 1 : 0 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.div
+              class="relative z-10 p-2"
+              whileHover={{ rotate: 180 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Github class="w-6 h-6 text-primary" />
+            </motion.div>
+            <div class="relative z-10 font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-chart-1">
+              Github CDN
+            </div>
+          </motion.div>
+        </Link>
+
+        <div class="md:hidden">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            class="text-primary focus:outline-none"
+          >
+            <Menu class="w-6 h-6" />
+          </button>
+        </div>
+
+        <div class="hidden md:block">
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            class="relative group px-4"
+          >
+            <RepoConnector />
+            <motion.div
+              class="absolute inset-0 bg-primary/5 rounded-md"
+              initial={{ scale: 0 }}
+              whileHover={{ scale: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          class="md:hidden"
+        >
+          <RepoConnector />
+        </motion.div>
+      )}
+    </div>
+  </div>
+</motion.header>

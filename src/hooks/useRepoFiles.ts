@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import useSelectedRepo from './useSelectedRepo';
+import useSelectedRepo from '../utils/useSelectedRepo';
 import { useSession } from 'next-auth/react';
 
 export type GithubFile = {

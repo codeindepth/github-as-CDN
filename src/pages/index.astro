@@ -1,0 +1,25 @@
+---
+import '../styles/global.css';
+import { formatDate } from '../utils/date';
+
+const today = new Date();
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub as CDN - Astro Rewrite</title>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to GitHub as CDN powered by Astro</h1>
+    </header>
+    <main>
+      <p>Today is {formatDate(today)}</p>
+      <p>This project has been successfully migrated to Astro.</p>
+    </main>
+    <footer>
+      <small>© 2025 codeindepth. All rights reserved.</small>
+    </footer>
+  </body>
+</html>

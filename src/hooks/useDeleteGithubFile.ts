@@ -1,8 +1,7 @@
-// useDeleteGithubFile.ts
 import { useState } from "react";
-import type { GithubFile } from "./useRepoFiles";
-import useSelectedRepo from "./useSelectedRepo";
-import { useToast } from "./use-toast";
+import type { GithubFile } from "../utils/useRepoFiles";
+import useSelectedRepo from "../utils/useSelectedRepo";
+import { useToast } from "../utils/use-toast";
 import { useSession } from "next-auth/react";
 
 const useDeleteGithubFile = () => {
