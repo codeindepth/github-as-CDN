@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import type { Repo } from './useRepoAccess';
-import useRepoAccess from './useRepoAccess';
+import type { Repo } from '../utils/useRepoAccess';
+import useRepoAccess from '../utils/useRepoAccess';
 
 const useSelectedRepo = (): Repo | null => {
   const [selectedRepo, setSelectedRepo] = useState<Repo | null>(null);

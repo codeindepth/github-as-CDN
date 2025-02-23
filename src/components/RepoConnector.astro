@@ -1,0 +1,76 @@
+---
+import { useSession, signOut } from 'next-auth/react';
+import ConnectGithubButton from '../ConnectGithubButton.astro';
+import { Button } from '../ui/button.astro';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuItem } from '../ui/dropdown-menu.astro';
+import { ChevronDown, ChevronRight } from 'lucide-react';
+import RepoConnectorNavbar from '../RepoConnectorNavbar.astro';
+
+const { data: session, status } = useSession();
+const user = session?.user || {};
+const solutions = [
+  {
+    name: "Update Source Github Repo",
+    description: "Manage which public Github repository's should be used with GaaC.",
+    href: `https://github.com/apps/git-as-cdn/installations/new/permissions?target_id=${user.id}`,
+    icon: ChevronRight,
+  },
+];
+---
+
+<div class="my-2 flex flex-1 items-center justify-end md:my-auto lg:w-0">
+  {status !== "authenticated" ? (
+    <ConnectGithubButton />
+  ) : (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" class="h-auto p-1">
+          <span class="mr-2 text-black underline underline-offset-8">
+            {session.user?.name} / <RepoConnectorNavbar />
+          </span>
+          <img
+            src={session.user?.image}
+            alt={session.user?.name}
+            class="size-8 rounded-full border-2 border-black"
+          />
+          <ChevronDown class="ml-2 h-5 w-5 text-gray-400" />
+        </Button>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end" class="w-[400px]">
+        <div class="grid gap-4 p-6">
+          {solutions.map((item) => (
+            <DropdownMenuItem key={item.name} asChild>
+              <a
+                href={item.href}
+                target="_blank"
+                class="flex items-start rounded-lg p-3 hover:bg-gray-50"
+                rel="noreferrer"
+              >
+                <item.icon class="size-6 shrink-0 text-black" />
+                <div class="ml-4">
+                  <p class="text-base font-medium text-gray-900">
+                    {item.name}
+                  </p>
+                  <p class="mt-1 text-sm text-gray-500">
+                    {item.description}
+                  </p>
+                </div>
+              </a>
+            </DropdownMenuItem>
+          ))}
+        </div>
+
+        <div class="border-t border-gray-200 bg-gray-50 p-4">
+          <Button
+            variant="default"
+            onClick={() => signOut()}
+            class="w-full"
+          >
+            Log out
+          </Button>
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )}
+</div>
